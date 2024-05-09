@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,  } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios'; 
+
+// internal imports
+import NavBar from './NavBar';
 
 function CustomerForm() {
     // might want props?
@@ -8,6 +12,7 @@ function CustomerForm() {
         phone: '',
         email: ''
     })
+    const { id } = useParams();
     
     // local to this component only
     // inline styling 
@@ -36,14 +41,25 @@ function CustomerForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         
-        const response = await axios.post(`https://httpbin.org/post`, {
-            body: customerData
-        })
-        console.log(response.data)
+        if (id) {
+            const response = await axios.put(`https://httpbin.org/put?id=${id}`, {
+                body: customerData,
+                // params: {
+                //     id: id
+                // }
+            })
+            console.log(response.data) 
+        } else {
+            const response = await axios.post(`https://httpbin.org/post`, {
+                body: customerData
+            })
+            console.log(response.data)
+        }
     }
     
   return (
     <div>
+        <NavBar />
         <form style={formStyles} onSubmit={handleSubmit}>
             <h3> Add/Edit Customer </h3>
             <label htmlFor='name'>Name:</label>

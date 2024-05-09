@@ -22,3 +22,24 @@
   text-shadow: 2px 2px 2px pink;
   margin-top: 50px;
 }
+
+
+/* NavBar Styles */
+
+.nav-bar {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center; 
+  background-color: rgb(37, 35, 35);
+  color: white; 
+}
+
+.nav-bar > a {
+  text-decoration: none; 
+  color: white; 
+}
+
+.nav-bar > a:hover {
+  color: rgb(233, 14, 167);
+}
