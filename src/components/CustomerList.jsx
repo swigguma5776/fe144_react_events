@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {ListGroup, Button, Container } from 'react-bootstrap'; 
 
 // internal imports
 import '../App.css'; 
@@ -51,7 +52,7 @@ export class CustomerList extends Component {
     // gets called immediately after mounting method is finished
     componentWillUnmount(){
         // this is where you'd put any cleanup for events or api calls
-        alert('CustomerList Component is being unmounted')
+        console.log('CustomerList Component is being unmounted')
     }
     
     
@@ -61,25 +62,20 @@ export class CustomerList extends Component {
     return (
         <div>
         <NavBar />
-            <div className='customer-list'>
-                <h1>All the Customers!</h1>
-                    <div>
-                    {myCustomers.map( customer => (
-                        <div>
-                            <h3 key={customer.id} className="customer-card" onClick={ () => this.selectCustomer(customer.id) }>
-                            Customer Name: {customer.name}
-                            </h3>
-                            <Link to={`../edit-customer/${customer.id}`}>Edit</Link>
-                        </div>
-                    ))}
-                    </div>  
-                    { this.state.selectedCustomerId && 
-                    <div>
-                        <h2>Selected Customer: {this.state.selectedCustomerId}</h2> 
-                        <OrderList customerId={this.state.selectedCustomerId} />
-                    </div>
-                }
-            </div>
+            <ListGroup className="border rounded mx-auto my-4 w-50" defaultActiveKey="#link1">
+               {myCustomers.map( customer  => (
+                <ListGroup.Item className="d-flex justify-content-around align-items-center"action onClick={() => this.selectCustomer(customer.id)}>
+                    {customer.name}
+                    <Button className='ms-4 w-50' as={Link} to={`../edit-customer/${customer.id}`} variant='outline-success'>Edit</Button>
+                </ListGroup.Item>
+               ))}
+            </ListGroup>
+            { this.state.selectedCustomerId &&
+                <Container fluid className='d-flex flex-column align-items-center'>
+                    <h2>Selected Customer: {this.state.selectedCustomerId}</h2> 
+                    <OrderList customerId={this.state.selectedCustomerId} />
+                </Container>
+            }
       </div>
     )
   }

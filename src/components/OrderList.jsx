@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { ListGroup, Container } from 'react-bootstrap';
 
 function OrderList(props) {
     // grab customerId from props
@@ -48,16 +49,16 @@ function OrderList(props) {
     
     
   return (
-    <div className='order-list'>
+    <Container fluid className='text-center'>
         <h2>Your Orders</h2>
-        <ul>
-            {orders.map( order => (
-                <li key={order.id}>
-                    Order ID: {order.id} Date: {order.date}
-                </li>
-            ))}
-        </ul> 
-    </div>
+        <ListGroup className="border rounded mx-auto my-4 w-50" defaultActiveKey="#link1">
+               {orders.map( order  => (
+                <ListGroup.Item key={order.id} className="d-flex justify-content-around align-items-center p-4"action>
+                    Order ID: {order.id} Date: {order.date}  
+                </ListGroup.Item>
+               ))}
+            </ListGroup>
+    </Container>
   )
 }
 
